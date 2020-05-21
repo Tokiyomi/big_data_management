@@ -57,7 +57,7 @@ mongo "mongodb+srv://cluster0-qwc17.mongodb.net/test" --username TypeYourUsernam
 ```
   
 ## Some basic commands
-* Inserting a Document Into a Collection, if doesn't exist, one will be created
+* **Inserting a Document Into a Collection, if doesn't exist, one will be created**
 ```
 > db.YourCollectionName.insert(
   {.
