@@ -74,18 +74,15 @@ WriteResult({ "nInserted": 1 })
 * Find one arbitrary document
 ```
 > db.YourCollectionName.findOne() # Random
-```
-```
+
 > db.YourCollectionName.findOne({"name":"abc"}) # Finds one document by attribute
 ```
 * Find all the documents in a collection
 ```
 > db.YourCollectionName.find()
-```
-```
+
 > db.YourCollectionName.find().pretty() # JSON Format
-```
-```
+
 > db.YourCollectionName.find.().limit(NumberOfResults) # Show the first N documents that match
 ```
 * Find an specific document with a query
@@ -122,8 +119,7 @@ WriteResult({ "nInserted": 1 })
 * Remove document
 ```
 > db.YourCollectionName.remove() # Remove all collection's documents
-```
-```
+
 > db.YourCollectionName.remove({"name":"abc"}) # Remove by criteria
 ```
 * Sort data
@@ -133,11 +129,9 @@ WriteResult({ "nInserted": 1 })
 * Updating documents
 ```
 > db.YourCollectionName.update({"name":"abc"},{"age":25"}) # Replaces thw whole document
-```
-```
+
 > db.YourCollectionName.update({"name":"abc"},{"$set":{"age":25}}) # Change certain attribute
-```
-```
+
 > db.YourCollectionName.update({"name":"abc"},{"$unset":{"age":1}}) # unset attribute 
 ```
 * Find and update
@@ -145,6 +139,7 @@ WriteResult({ "nInserted": 1 })
 > db.YourCollectionName.findAndModify({query:{..},sort:{...},update:{...}})
 ```
 * Embedded Documents
+
 We embed documents simply by adding the document as a value for a given field.
 ```
 {
@@ -152,6 +147,7 @@ We embed documents simply by adding the document as a value for a given field.
 }
 ```
 * Aggregation
+
 The aggregation framework allows for advanced computations. "Aggregate" is a fancy word for combining data
 ```
 > db.potions.aggregate(
@@ -178,6 +174,7 @@ Anything specified after the group key is considered an accumulator. Accumulator
 {"_id": "Leprechaun Inc”, "total": 1}
 ```
 * An integral example using $match
+
 $match is just like a normal query and will only pass documents to the next stage if they meet the specified condition(s)
 ```
 > db.potions.aggregate([
