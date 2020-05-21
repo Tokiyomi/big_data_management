@@ -2,9 +2,9 @@
 By Toki
 
 ## Features
-* Open-source _NoSQL_ database ---> Catch-all term for databases that generally aren’t relational and don’t have a query language like SQL 
-* Document-oriented ---> Documents Are Just JSON-like Objects
-* Great for unstructured data, especially when you have a lot of it
+* **Open-source _NoSQL_ database** ---> Catch-all term for databases that generally aren’t relational and don’t have a query language like SQL 
+* **Document-oriented** ---> Documents Are Just JSON-like Objects
+* **Great for unstructured data**, especially when you have a lot of it
 
 ## Installing
 
@@ -47,3 +47,13 @@ reviews       0.078GB
 mongo "mongodb+srv://cluster0-qwc17.mongodb.net/test" --username TypeYourUsername
 ```
 ## Some basic commands
+* Inserting a Document Into a Collection, if doesn't exist, one will be created
+```
+> db.YourCollectionName.insert(
+  {.
+   "name": "Toki",
+   "another_field": "Yomi's"
+  }
+  )
+WriteResult({ "nInserted": 1 })
+```
