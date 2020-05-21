@@ -67,17 +67,17 @@ mongo "mongodb+srv://cluster0-qwc17.mongodb.net/test" --username TypeYourUsernam
   )
 WriteResult({ "nInserted": 1 })
 ```
-* Drop collection
+* **Drop collection**
 ```
 > db.YourCollectionName.drop()
 ```
-* Find one arbitrary document
+* **Find one arbitrary document**
 ```
 > db.YourCollectionName.findOne() # Random
 
 > db.YourCollectionName.findOne({"name":"abc"}) # Finds one document by attribute
 ```
-* Find all the documents in a collection
+* **Find all the documents in a collection**
 ```
 > db.YourCollectionName.find()
 
@@ -85,7 +85,7 @@ WriteResult({ "nInserted": 1 })
 
 > db.YourCollectionName.find.().limit(NumberOfResults) # Show the first N documents that match
 ```
-* Find an specific document with a query
+* **Find an specific document with a query**
 ```
 > db.YourCollectionName.find( {"name": "Toki"} ) # Queries are field/value pairs
 ```
@@ -96,7 +96,7 @@ WriteResult({ "nInserted": 1 })
    "another_field": "Yomi's"
  }
 ```
-* Queries That Return Multiple Values
+* **Queries That Return Multiple Values**
 ```
 > db.YourCollectionName.find( {"another_field": "Yomi's"} ) # Queries are field/value pairs
 ```
@@ -112,21 +112,21 @@ WriteResult({ "nInserted": 1 })
    "another_field": "Yomi's"
  }
 ```
-* Count documents
+* **Count documents**
 ```
 > db.YourCollectionName.find().count()
 ```
-* Remove document
+* **Remove document**
 ```
 > db.YourCollectionName.remove() # Remove all collection's documents
 
 > db.YourCollectionName.remove({"name":"abc"}) # Remove by criteria
 ```
-* Sort data
+* **Sort data**
 ```
 > db.YourCollectionName.find().sort({"some_field": N}) # 1 for ascending, -1 for descending
 ```
-* Updating documents
+* **Updating documents**
 ```
 > db.YourCollectionName.update({"name":"abc"},{"age":25"}) # Replaces thw whole document
 
@@ -134,11 +134,11 @@ WriteResult({ "nInserted": 1 })
 
 > db.YourCollectionName.update({"name":"abc"},{"$unset":{"age":1}}) # unset attribute 
 ```
-* Find and update
+* **Find and update**
 ```
 > db.YourCollectionName.findAndModify({query:{..},sort:{...},update:{...}})
 ```
-* Embedded Documents
+* **Embedded Documents**
 
 We embed documents simply by adding the document as a value for a given field.
 ```
@@ -146,7 +146,7 @@ We embed documents simply by adding the document as a value for a given field.
 "ratings": {"strength": 2, "flavor": 5}
 }
 ```
-* Aggregation
+* **Aggregation**
 
 The aggregation framework allows for advanced computations. "Aggregate" is a fancy word for combining data
 ```
@@ -160,7 +160,8 @@ The aggregation framework allows for advanced computations. "Aggregate" is a fan
 {"_id": "Brewers"},
 {"_id": "Leprechaun Inc"}
 ```
-* Accumulators
+* **Accumulators**
+
 Anything specified after the group key is considered an accumulator. Accumulators take a single expression and compute the expression for grouped documents.
 ```
 > db.potions.aggregate([
@@ -173,7 +174,7 @@ Anything specified after the group key is considered an accumulator. Accumulator
 {"_id": "Brewers", "total": 1,},
 {"_id": "Leprechaun Inc”, "total": 1}
 ```
-* An integral example using $match
+* **An integral example using $match**
 
 $match is just like a normal query and will only pass documents to the next stage if they meet the specified condition(s)
 ```
@@ -220,5 +221,6 @@ $match is just like a normal query and will only pass documents to the next stag
 
 ## References
 [Mongo Manual Reference](https://docs.mongodb.com/manual/reference/)
+
 [The Magical Marvels of MongoDB](https://www.pluralsight.com/courses/code-school-the-magical-marvels-of-mongodb)
   
