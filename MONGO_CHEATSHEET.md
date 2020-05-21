@@ -7,6 +7,8 @@ By Toki
 '''
 
 ### Login into a cluster
-mongo "mongodb+srv://cluster0-qwc17.mongodb.net/test" --username TypeYourUsername
 
+```
+mongo "mongodb+srv://cluster0-qwc17.mongodb.net/test" --username TypeYourUsername
+```
 ### Some basic commands
