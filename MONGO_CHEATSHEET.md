@@ -27,38 +27,38 @@ SQL is relational and MongoDB is document-oriented.
 ![mongo_comparisson](img/mongolito.JPG)
 
 ## Starting the Shell
-```
+```shell
 $ mongo
 >
 ```
 ### Use or create a new database
-```
+```shell
 > use reviews # Switches to use the database and creates it if doesn't exist when we write to it
 
 > db # reviews
 ```
 
 ### Show list of commands
-```
+```shell
 > help
 db.help()       ...
 ...             ...
 ...             ...
 
 > show dbs
-test          0.078GB
+test_          0.078GB
 reviews       0.078GB
 ```
 
 ## Login into a cluster
 
-```
+```shell
 mongo "mongodb+srv://cluster0-qwc17.mongodb.net/test" --username TypeYourUsername
 ```
   
 ## Some basic commands
 * **Inserting a Document Into a Collection, if doesn't exist, one will be created**
-```
+```shell
 > db.YourCollectionName.insert(
   {.
    "name": "Toki",
@@ -86,10 +86,10 @@ WriteResult({ "nInserted": 1 })
 > db.YourCollectionName.find.().limit(NumberOfResults) # Show the first N documents that match
 ```
 * **Find an specific document with a query**
-```
+```shell
 > db.YourCollectionName.find( {"name": "Toki"} ) # Queries are field/value pairs
 ```
-```
+```shell
 {
    "_id": ObjectId("559f07d741894edebdd8aa6d"),
    "name": "Toki",
@@ -97,10 +97,10 @@ WriteResult({ "nInserted": 1 })
  }
 ```
 * **Queries That Return Multiple Values**
-```
+```shell
 > db.YourCollectionName.find( {"another_field": "Yomi's"} ) # Queries are field/value pairs
 ```
-```
+```shell
 {
    "_id": ObjectId("559f07d741894edebdd8aa6d"),
    "name": "Toki",
@@ -135,13 +135,13 @@ WriteResult({ "nInserted": 1 })
 > db.YourCollectionName.update({"name":"abc"},{"$unset":{"age":1}}) # unset attribute 
 ```
 * **Find and update**
-```
+```shell
 > db.YourCollectionName.findAndModify({query:{..},sort:{...},update:{...}})
 ```
 * **Embedded Documents**
 
 We embed documents simply by adding the document as a value for a given field.
-```
+```shell
 {
 "ratings": {"strength": 2, "flavor": 5}
 }
@@ -149,12 +149,12 @@ We embed documents simply by adding the document as a value for a given field.
 * **Aggregation**
 
 The aggregation framework allows for advanced computations. "Aggregate" is a fancy word for combining data
-```
+```shell
 > db.potions.aggregate(
   [{"$group": {"_id": "$vendor_id"}}] # Field names that begin with a “$” are called "field paths” and are links to a feld in a document
 )
 ```
-```
+```shell
 # Returns result object containing the unique vendors in the inventory collection
 {"_id": "Kettlecooked"},
 {"_id": "Brewers"},
@@ -163,12 +163,12 @@ The aggregation framework allows for advanced computations. "Aggregate" is a fan
 * **Accumulators**
 
 Anything specified after the group key is considered an accumulator. Accumulators take a single expression and compute the expression for grouped documents.
-```
+```shell
 > db.potions.aggregate([
   { "_id": "$vendor_id", "total": {"$sum": 1}}} # Will add 1 for each matching document
 ])
 ```
-```
+```shell
 # Results total number of documents per vendor
 {"_id": "Kettlecooked", "total": 2},
 {"_id": "Brewers", "total": 1,},
@@ -177,7 +177,7 @@ Anything specified after the group key is considered an accumulator. Accumulator
 * **An integral example using $match**
 
 $match is just like a normal query and will only pass documents to the next stage if they meet the specified condition(s)
-```
+```shell
 > db.potions.aggregate([
  {"$match": {"price": {"$lt": 15}}}, # Matching Potions Under $15
  {"$project":{"_id": false, "vendor_id": true, "grade": true}}, # Vendor and grade for each potion after the match stage
@@ -186,7 +186,7 @@ $match is just like a normal query and will only pass documents to the next stag
  {"$limit": 3} # Specify the number of documents to limit
 ])
 ```
-```
+```shell
 # Agregation results
  {"_id": "Kettlecooked", "avg_grade": 99 },
  {"_id": "Leprechaun Inc", "avg_grade": 95 },
