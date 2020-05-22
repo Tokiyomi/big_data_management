@@ -54,16 +54,17 @@ field IDs, not the names, to identify fields.
 > The **_Hadoop Distributed File System (HDFS)_**. Hadoop is deployed across multiple servers, typically called a cluster, and HDFS is a distributed and scalable filesystem that manages how data is stored across the cluster. 
 
 ### 4. How do you store a master dataset with a distributed filesystem?
->  With unmodifiable files you can’t store the entire master dataset in a single file. What you can do instead is spread the master dataset among many files, and store all those files in the same folder. Each file would contain many serialized data objects, as illustrated in figure. To append to the master dataset, you simply add a new file containing the new data
-objects to the master dataset folder, as is shown in figure.
+>  With `unmodifiable files` you can’t store the entire master dataset in a single file. What you can do instead is spread the master dataset among many files, and store all those files in the same folder. Each file would contain many serialized data objects, as illustrated in figure. To `append` to the master dataset, you simply add a new file containing the new data
+objects to the master dataset folder, as is shown.
 
 <p align="center">
   <img src="img/distributed_filesystems.JPG">
 
 ### 5. Imagine you have a videogame application and you store your player's login information on a distributed filesystem. Each login contains a username, IP address, and timestamp. How would you apply the vertical partitioning to make your batch layer more efficient?
->  You can create a separate folder for each day of data. Each day folder would have many files containing the logins for that day.  By sorting information for each date in separate folders, a function can select only the folders containing data relevant to its computation.
+>  You can create a separate `folder` for each day of data. Each day folder would have many files containing the logins for that day.  By sorting information for each date in separate folders, a `function` can select only the folders containing data relevant to its computation.
 
-![vertical_partitioning](img/ver_part.JPG)
+<p align="center">
+  <img src="img/ver_part.JPG">
 
 ## Some extra information
 
