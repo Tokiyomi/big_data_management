@@ -51,7 +51,7 @@ field IDs, not the names, to identify fields.
 > The `operations` you can do with a distributed filesystem are often more limited than you can do with a regular filesystem. For instance, you may not be able to write to the middle of a file or even modify a file at all after creation. 
 
 ### 3. Which tool we can use to work with distributed filesystems?
-> The _Hadoop Distributed File System (HDFS)_. Hadoop is deployed across multiple servers, typically called a cluster, and HDFS is a distributed and scalable filesystem that manages how data is stored across the cluster. 
+> The **_Hadoop Distributed File System (HDFS)_**. Hadoop is deployed across multiple servers, typically called a cluster, and HDFS is a distributed and scalable filesystem that manages how data is stored across the cluster. 
 
 ### 4. How do you store a master dataset with a distributed filesystem?
 >  With unmodifiable files you can’t store the entire master dataset in a single file. What you can do instead is spread the master dataset among many files, and store all those files in the same folder. Each file would contain many serialized data objects, as illustrated in figure. To append to the master dataset, you simply add a new file containing the new data
