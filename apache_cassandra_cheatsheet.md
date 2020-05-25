@@ -71,7 +71,7 @@ ALTER KEYSPACE Excelsior
     WITH replication = {'class': 'SimpleStrategy', 'replication_factor' : 4};
 ```
 ### DROP KEYSPACE
-Dropping a keyspace can be done using the DROP KEYSPACE statement:
+Dropping a keyspace can be done using the `DROP KEYSPACE` statement:
 ```cassandra
 drop_keyspace_statement ::=  DROP KEYSPACE [ IF EXISTS ] keyspace_name
 ```
@@ -80,7 +80,7 @@ For instance:
 DROP KEYSPACE Excelsior;
 ```
 ### CREATE TABLE
-Creating a new table uses the CREATE TABLE statement:
+Creating a new table uses the `CREATE TABLE` statement:
 ```cassandra
 CREATE TABLE monkeySpecies (
     species text PRIMARY KEY,
