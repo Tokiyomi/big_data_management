@@ -10,7 +10,7 @@
 
 ## What is Cassandra?
 <p align="center">
-  <img src="img/cassandra-database.JPG">
+  <img src="img/cassandra-database.jpg">
   
 > “Apache Cassandra is the right choice when you need scalability and high availability without compromising performance. Linear scalability and proven fault-tolerance on commodity hardware or cloud infrastructure make it the perfect platform for mission-critical data. Cassandra's support for replicating across multiple datacenters is best-in-class, providing lower latency for your users and the peace of mind of knowing that you can survive regional outages.”
 
@@ -21,7 +21,7 @@
 
 ## Features
 <p align="center">
-  <img src="img/features.JPG">
+  <img src="img/features.png">
   
 ## Terminology
 <p align="center">
