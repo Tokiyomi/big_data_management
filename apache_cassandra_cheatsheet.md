@@ -4,6 +4,7 @@
 - [History](#history)
 - [Features](#features)
 - [Terminology](#terminology)
+- [Installation](#installation)
 - [Data definition](#data-definition)
 - [Data manipulation](#data-manipulation)
 - [References](#references)
@@ -22,6 +23,9 @@
 ## Features
 <p align="center">
   <img src="img/features.png">
+  
+## Installation
+"""[Apache Cassandra Download and Installation Instructions](https://cassandra.apache.org/download/)"""
   
 ## Terminology
 <p align="center">
