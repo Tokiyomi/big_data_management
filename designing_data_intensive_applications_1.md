@@ -32,7 +32,7 @@ By Toki
 > Now that approach 2 is robustly implemented, Twitter is moving to a hybrid of both approaches. Most users’ tweets continue to be fanned out to home timelines at the time when they are posted, but a small number of users with a very large number of followers (i.e., celebrities) are excepted from this fan-out. Tweets from any celebrities that a user may follow are fetched separately and merged with that user’s home timeline when it is read, like in approach 1. This hybrid approach is able to deliver consistently good performance. 
 
 <p align="center">
-  <img src="img/twitter.JPG">
+  <img src="img/twiter.JPG">
 
 ### 4. You want to measure your web application performance, how would you do it?
 > In online systems, what’s usually more important is the service’s _response time_—that is, the time between a client sending a request and receiving a response.
@@ -43,7 +43,6 @@ By Toki
 
 <p align="center">
   <img src="img/percentil.JPG">
-<p align="center">
   <img src="img/backend.JPG">
 
 ### 5. If you want to prepare your web application for a fast-growing service, which strategies could you implement?
