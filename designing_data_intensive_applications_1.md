@@ -43,8 +43,7 @@ By Toki
 
 <p align="center">
   <img src="img/percentil.JPG">
-  
-  <p align="center">
+<p align="center">
   <img src="img/backend.JPG">
 
 ### 5. If you want to prepare your web application for a fast-growing service, which strategies could you implement?
