@@ -92,28 +92,25 @@ By Toki
 
 ## Some extra information
 
-### 1. What are all the parameters that are to be considered while choosing a serialization framework?
-> **1. Schema first or Code First**
->   * Generally, schema first approaches, just in case.
->   * If you have a project that'll involve different languages, code first approaches are likely to be problematic. It's all very well have a JAVA class that can be serialised, but it might be a nuisance if that has to be deserialised in C.
+### 1. How do Scalability and Elasticity work in Cloud Computing?
+> Virtualization is what makes scalability in cloud computing possible. Virtual machines (VMs) are scalable. They’re not like physical machines, whose resources are relatively fixed. You can add any amount of resources to VMs at any time. You can scale them up by:
+> * Moving them to a server with more resources
+> * Hosting them on multiple servers at once (clustering)
 >
-> **2.  Inter-object Demarkation**
->   * With demarkation done by the transport / store, the reader can get a batch of bytes knowing for sure that it encompasses one object, and only one object. If your message transport / data store doesn't demarkate between batches of bytes, e.g. a network stream or a file, then either you invent your own demarkation markers, or use a serialisation that demarkates for you. Examples include ASN.1 BER, XML.
+> There are usually two ways to scale a cloud solution up or down:
+> * Contact the cloud provider to request it
+> * Add the resources yourself via an online portal
 >
-> **3. Cannonical**
->   * This can be useful in circumstances where you're not entirely sure where the data is coming from. If the data is not cannonical, the reader has to know in advance what the object structure was otherwise the deserialisation is ambiguous. Examples of cannonical serialisations include ASN.1 BER, ASN.1 cannonical PER, XML.
->
-> **4. Size and Value Constrained**
->   * Some serialisation technologies allow the developer to set constraints on the values of fields and the sizes of arrays. The intention is that code generated from a schema file incorporating such constraints will automatically validate objects on serialisation and on deserialistion.
->   * Examples include ASN.1 (usually done pretty well by tool sets), XML (not often done properly by free / cheap toolsets; MS's xsd.exe purposefully ignores any such constraints) and JSON (down to object validators). Of these three, ASN.1 has by far the most elaborate of constraints syntaxes; it's really very powerful.
->
-> **5. Binary / Text**
->   * Binary serialisations will be smaller, and probably a bit quicker to serialise / deserialise. Text serialisations are more debuggable.
->
-> **6. Tools cost**
->   * ASN.1 tools range from very, very expensive (and really good), to free (and less good). A lot of others are free, though I've found that the best XML tools (paying proper attention to value / size constraints) are quite expensive too.
+> Some cloud solutions can also be auto-scaled. This means you can set them up to scale up or down automatically based on certain conditions, like when your cloud solution is running out of storage space.
+
+### 2. Mention the benefits of Cloud Scalability
+> 1. **It makes your job easier.** Don’t tell your boss about this one, but adding resources with the cloud takes less time than doing it locally with physical hardware – a lot less time. You can then spend a lot of this extra time “working.”
+> 2. **It makes disaster recovery easier.** Not every business can afford a hot or cold site. But scalability allows any business to rebuild their IT in just a few hours; you just have to deploy new servers and copy over your data. It can take weeks, on the other hand, to rebuild your local IT with new physical servers.
+> 3. **It gives your business incredible speed and flexibility.** Want to open a new branch? Add a new team? Start a new project or campaign? Scalability lets you add the IT resources for initiatives like this in minutes, not months.
+> 4. **It lets you avoid costly, disruptive migrations.** You don’t want to deploy your IT on a platform, only to find that it can’t support you after several years of solid growth. With a scalable platform, you only migrate when you want to – not when your underlying platform lets you down.
+> 5. **It saves you money. There are no large upfront costs with the cloud.** No $5,000+ servers, SANs, or networking equipment to buy. And you only pay for what you use. On a large scale, scalability reduces waste. It’s why cloud providers can offer secure, reliable business email hosting for $5 per month and still be in business.
 
 ## References
 Kleppmann, M. (2017). _Designing Data Intensive Applications: Part 1. Foundations of Data Systems: Reliable, Scalable, and Maintainable Applications_. O'Reilly, 1st Edition. Pp.3-22.
 
-StackOverflow. _Chosing serialization frameworks_. From: https://stackoverflow.com/questions/60506978/choosing-serialization-frameworks
+IronOrbit. (2018). _Scalability In Cloud Computing_. From: https://www.ironorbit.com/blog/scalability-in-cloud-computing/
