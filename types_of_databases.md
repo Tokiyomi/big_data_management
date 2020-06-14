@@ -9,17 +9,17 @@
 	- [Comparison between IMDBs](#comparison-between-imdbs)
 - [Graph](#graph)
 	- [Descriptions](#description)
-	- [Example](#eExample)
-	- [Applications](#aApplications)
-	- [Capabilities](#cCapabilities)
-	- [Limitations](#lLimitations)
+	- [Example](#example)
+	- [Applications](#applications)
+	- [Capabilities](#capabilities)
+	- [Limitations](#limitations)
 	- [Popular open-source graph databases](#popular-open-source-graph-databases)
 	- [Comparison matrix between graph databases](#comparison-matrix-between-graph-databases)
 - [Document-oriented](#document-oriented)
 	- [Document features](#document-features)
 	- [Addresing documents](#addresing-documents)
 	- [Organization](#organization)
-	- [API – Query language](#api-–--query-language)
+	- [API – Query language](#api--query-language)
 	- [Applications](#applications-1)
 	- [Limitations](#limitations-1)
 	- [Popular open-source document-oriented databases](#popular-open-source-document-oriented-databases)
@@ -273,7 +273,7 @@ We can organize our documents in different ways or implementations, for example:
 - AllegroDB (n.d.) [Editions/Pricing](https://allegrograph.com/allegrograph-editions/). Retrieved June 14, 2020.
 - Franz (n.d.) [Allegro DB Protocol](https://franz.com/agraph/support/documentation/current/http-protocol.html). Retrieved June 14, 2020.
 - AllegroDB (n.d.) [Format](https://allegrograph.com/press_room/allegrograph-6-5-marks-first-multi-model-semantic-graph-and-document-database-via-json-and-json-ld/). Retrieved June 14, 2020.
- - Drake, M. (August 9, 2019). [A Comparison of NoSQL Database Management Systems and Models]([https://www.digitalocean.com/community/tutorials/a-comparison-of-nosql-database-management-systems-and-models#key-value-databases](https://www.digitalocean.com/community/tutorials/a-comparison-of-nosql-database-management-systems-and-models#key-value-databases)) at [DigitalOcean](https://www.digitalocean.com/) . Retrieved June 8, 2020.
+ - Drake, M. (August 9, 2019). [A Comparison of NoSQL Database Management Systems and Models](https://www.digitalocean.com/community/tutorials/a-comparison-of-nosql-database-management-systems-and-models#key-value-databases) at [DigitalOcean](https://www.digitalocean.com/) . Retrieved June 8, 2020.
  - Wikipedia: [Document-oriented database](https://en.wikipedia.org/wiki/NoSQL#Document_store). Retrieved June 8, 2020.
  - Wikipedia: [Document-oriented implementations](https://en.wikipedia.org/wiki/Document-oriented_database#Implementations).  Retrieved June 14, 2020.
  - ArangoDB (n.d.) [ArangoDB features](https://www.arangodb.com/). Retrieved June 14, 2020.
@@ -283,7 +283,6 @@ We can organize our documents in different ways or implementations, for example:
  - Microsoft (n.d.) [Azure CosmosDB](https://azure.microsoft.com/es-mx/services/cosmos-db/). Retrieved June 14, 2020.
 
 
-This document was created by:
-
+This document was created by:<br>
 Alexa Canché, Carolina Garma & Brenda Martín
 
