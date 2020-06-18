@@ -5,7 +5,7 @@ By toki
 	- [Relational Model vs Document Model](#relational-model-vs-document-model)
 	- [Query Languages for Data](#query-languages-for-data)
 	- [Graph Models](#graph-models)
-- [Extra](#extra)
+- [Extra](#11-investigate-3-graph-databases)
 - [References](#references)
 
 ## Chapter 2: Data Models and Query Languages
