@@ -5,6 +5,11 @@ By toki
 	- [Relational Model vs Document Model](#relational-model-vs-document-model)
 	- [Query Languages for Data](#query-languages-for-data)
 	- [Graph Models](#graph-models)
+- [Chapter 3: Storage and Retrieval](#chapter-3-storage-and-retrieval)
+	- [Redis](#redis)
+	- [Cassandra](#cassandra)
+	- [HBase](#hbase)
+	- [Red-black trees](#red-black-trees)
 - [Extra](#11-investigate-3-graph-databases)
 - [References](#references)
 
@@ -181,8 +186,91 @@ db.observations.mapReduce(
 > * **Imperative** 	
 > 	* **Gremlin:** Gremlin is a graph traversal language and virtual machine developed by Apache TinkerPop of the Apache Software Foundation. Gremlin works for both OLTP-based graph databases as well as OLAP-based graph processors.
 
+## Chapter 3: Storage and Retrieval
+
+#### 1. What is a log?
+> Strictly speaking, a log is any append-only sequence of records. Logs may be human-readable, or they may only be machine-readable.
+> This is distinct from application logs, which are a specific type of log. The two concepts are sometimes conflated however.
+> Logs are a fundamental structure in a database. Logs are fast because it's hard to beat the performance of simply appending to a file.
+
+#### 2. What is an index?
+> Another fundamental structure is the index. An index is a data structure which speeds up read operations. It usually slows down writes however because it requires performing work on every insert or append operation.
+
+#### 3. What is a Hash Map?
+> The hash map is a simple but effective index structure. Both Python and JavaScript objects are ultimately just implementations of hash maps. So are the dict and Map classes in these languages.
+
+#### 4. What happends if you combine log and hash map?
+> Databases using logs for primary storage are said to be using log-structured storage. If you combine a log and a hash map, you have a database! Thus the simplest possible practical (you can technically omit the index, but then a read operation would require a full file scan!) database: an append-only file store with an in-memory hash map index pointing to the byte offsets of records of interest.
+
+#### 5. Mention the pros and cosns of Bitcaks architecture
+* advantages
+	* Low read and write latency, with predictable timing. Reading is just a single disc read, writing is a single disc write.
+	* High throughput.
+	* Backup is as easy as copying the file.
+	* Straightforward error recovery. Only the last element being written can get corrupted.
+* cons
+	* The index must fit in memory (otherwise performance plummets).
+	* Range queries get no speed-up (which e.g. time-series data would benefit from).
+	
+#### 6. Which databases use SSTables and LSM-trees
+> This arrangement is what LevelDB and RocksDB, among other databases, use.
+> Cassandra and HBase use a similar scheme derived from the Google Bigtable paper.
+> Lucerne, a full-text search indexing engine used by Elasticsearch and Solr, uses a similar method for storing its (much more complicated) term dictionary.
+
+#### 7. How do B-Trees are arranged?
+> The most common database implementation, and the one used by most of the "classic" SQL engines, isn't a log storage design, it's a B-tree design.
+> The B-tree is a data structure which provides balanced in-order key access. It's not dissimilar to the red-black trees, actually.
+> B-trees are organized in terms of pages. Each page contains references to pages further down the list, except for the last page (the leaf page), which inlines pointers to the data it references.
+
+### Redis
+
+#### 8. What is the mission statement of Redis?
+> Redis is a free and open source in-memory key-value store.
+> It is like a more advanced version of memcached, the subject of the previous section.
+> Redis stands for "REmote DIctionary Server".
+> It was originated by a guy at VMWare, and has since spun off twice to a dedicated maintainer in Redis Labs.
+> Like memcache it is designed to be blazing fast, and most often used as a cache layer.
+> Persistence to disc is configurable via either writing to a log or by dumping to disc (snapshotting) at regular intervals.
+> Thus Redis is great for blazing-fast, mostly consistent storage.
+> You can use it as a cache by disabling the persistance layer entirely (gotta go fast).
+
+### Cassandra
+
+#### 9. What is Cassandra's data model?
+> The Cassandra data model is a standard SSTable LSM-tree implementation, taken from BigTable. So: write to commit log, write to memtable, acknowledge to client, periodically > flush the memtable into log files, periodicially merge logfiles into a new unified log.
+>
+> A hash is used to determine which node in the ring will accept the write for a chunk of data.
+>
+> After the insertion operation is finished, replication is done by sending the data to the left-right nodes the nodes is in communication.
+
+### HBase
+
+#### 10. What is HBase concept?
+> The HBase server is sharded into a master service and slave daemons.
+> All of the coordination services live on the master. All of the data lives on the slaves.
+> There are many services in play; the architecture is relatively complex.
+> HBase has the concept of a column family. A column family is a set of commonly group-accessed columns which are grouped together in memory. This improves read performance.
+> HBase also supports having multiple versions of a dataset entry.
+> Writes are slow (why?).
+> Reads are fast! HBase is the data store of choice for large Hadoop jobs. Hadoop is the job framework specifically designed for running jobs against data at scale!
+
+### Red-black trees 
+
+#### 11. What is a red-black tree?
+> Red-black trees are a type of self-balancing binary search tree. They have $O(\log{n})$ read times, making them highly efficient.
+> In addition to the properties of a binary search tree red-black trees have the following invariants:
+> Each node is either red or black.
+> All leaves are null and black.
+> If a node is red, then both its children are black.
+> Every path from a given node to any of its descendant null nodes contains the same number of black nodes.
+> Red–black trees offer worst-case guarantees for insertion time, deletion time, and search time.
+> Read operations are the same as in binary search trees.
+> Insert and delete are much more compliated, but still $O(\log{n})$.
+
 ## References
-Kleppmann, M. (2017). _Designing Data Intensive Applications: Part 1. Foundations of Data Systems: Reliable, Scalable, and Maintainable Applications_. O'Reilly, 1st Edition. Pp. 27-63
+Kleppmann, M. (2017). _Designing Data Intensive Applications: Part 1. Foundations of Data Systems: Data Models and Query Languages_. O'Reilly, 1st Edition. Pp. 27-63
+
+Kleppmann, M. (2017). _Designing Data Intensive Applications: Part 1. Foundations of Data Systems: Storage and Retrieval_. O'Reilly, 1st Edition. Pp. 69-103
 
 Rodriguez, M.A., "[The Gremlin Graph Traversal Machine and Language](https://arxiv.org/abs/1508.03843)," Proceedings of the ACM Database Programming Languages Conference, October, 2015.
 
