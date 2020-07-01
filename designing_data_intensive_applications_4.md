@@ -11,7 +11,7 @@ By toki
 ## Chapter 4: Encoding and Evolution
 ### Data Serialization
 
-#### 1. How do would you manege over time evolution applications?
+#### 1. How do would you manage over time evolution applications?
 > Applications evolve over time.
 >
 > When the application is server-side, you perform a rolling upgrade, taking down a few nodes in your deployment at a time for upgrades.
