@@ -2,7 +2,7 @@
 By toki
 ## Table of contents
 - [Chapter 4: Encoding and Evolution](#chapter-4-encoding-and-evolution)
-	- [Data Serialization](#data serialization)
+	- [Data Serialization](#data-serialization)
 	- [Human-readable data interchange formats](#human-readable-data-interchange-formats)
 	- [Binary Data Interchange Formats](#binary-data-interchange-formats)
   - [Data Flow](#data-flow)
