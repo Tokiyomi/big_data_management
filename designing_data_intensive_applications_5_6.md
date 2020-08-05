@@ -1,11 +1,12 @@
 # Designing Intensive Data Applications - 5 & 6
 By toki
 ## Table of contents
-- [Chapter 5: Encoding and Evolution](#chapter-4-encoding-and-evolution)
+- [Chapter 5](#chapter-4-encoding-and-evolution)
 	- [Data Serialization](#data-serialization)
 	- [Human-readable data interchange formats](#human-readable-data-interchange-formats)
 	- [Binary Data Interchange Formats](#binary-data-interchange-formats)
-  - [Data Flow](#data-flow)
+  	- [Data Flow](#data-flow)
+- [Chapter 6](#chapter-6)
 - [References](#references)
 
 ## Chapter 5: Encoding and Evolution
