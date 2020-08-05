@@ -1,93 +1,60 @@
 # Designing Intensive Data Applications - 5 & 6
 By toki
 ## Table of contents
-- [Chapter 5](#chapter-4-encoding-and-evolution)
-	- [Data Serialization](#data-serialization)
-	- [Human-readable data interchange formats](#human-readable-data-interchange-formats)
-	- [Binary Data Interchange Formats](#binary-data-interchange-formats)
-  	- [Data Flow](#data-flow)
+- [Chapter 5](#chapter-5)
 - [Chapter 6](#chapter-6)
 - [References](#references)
 
-## Chapter 5: Encoding and Evolution
-### Data Serialization
+## Chapter 5
 
-#### 1. How do would you manage over time evolution applications?
-> Applications evolve over time.
->
-> When the application is server-side, you perform a rolling upgrade, taking down a few nodes in your deployment at a time for upgrades.
->
-> When the application is client-side, updating is at the mercy of the user.
->
-> To make this easier, on the data layer, you may have either or both of backwards compatibility and forwards compatibility. The latter is far trickier.
+#### 1. Describe data replication
+- To keep data geographically close to your users (and thus reduce latency).
+- To allow the system to continue working even if some of its parts have failed (and thus increase availability).
+- To scale out the number of machines that can serve read queries (and thus increase read throughput).
 
-#### 2. How do we consider data in memory?
-> In memory we consider data in terms of the data structures they live in.
-> 
-> On disc we work with memory which has been encoded into a sequence of bytes somehow.
->
-> With a handful of exceptions for memory maps or memory-mapped files, which are direct representations of on-disc packing in in-memory data structure terms.
+#### 2. Processs of setting up a follower
+Take a consistent snapshot of the leader’s database at some point in time—if possible, without taking a lock on the entire database.
+Copy the snapshot to the new follower node.
 
-#### 3. What is serialization? 
-> The process of transliteration between these two formats is known as serialization, encoding, or marshalling. A specific format is a data serialization format.
->
-> Most languages include language-specific formats, like pickle, which can be used to store language object.
->
-> These formats are easy to use when working with a specific language, but how serializability boundaries and are not easily compatible with other languages.
->
-> Still, if your data always stays inside of your application boundary, these formats are fine.
+The follower connects to the leader and requests all the data changes that have happened since the snapshot was taken. This requires that the snapshot is associated with an exact position in the leader’s replication log.
 
-### Human-readable data interchange formats
+When the follower has processed the backlog of data changes since the snapshot, we say it has caught up. It can now continue to process data changes from the leader as they happen.
 
-#### 4. Which are common data interchange formats?
-> JSON and XML (and CSV, and the other usual suspects) are common data interchange formats, meant to be moved between application boundaries.
->
-> These formats are considered to be lowest common denominators
+#### 3. What are the different replication logs methods?
+- Statement-based replication: the leader logs every write request (statement) that it executes and sends that statement log to its followers.
 
-#### 5. What are their parsing problems?
-> They have parsing problems. For example, it's often impossible to difficult to determine the type of an object.
->
-> Being human-readable, they are also inefficient in resource terms when performing network transfers.
->
-> Still, for simple use cases these formats are usually sufficient.
+- Write-ahead log (WAL) shipping: the log is an append-only sequence of bytes containing all writes to the database. We can use the exact same log to build a replica on another node: besides writing the log to disk, the leader also sends it across the network to its followers.
 
-### Binary data interchange formats
+- Logical (row-based) log replication: use different log formats for replication and for the storage engine, which allows the replication log to be decoupled from the storage engine internals.
 
-#### 6. Mention two examples of binary data serialization stated  in the book
-> The two examples the book uses are Google Protobufs and Apache Thrift (both of which are still in good use in the ecosystem today).
+- Trigger-based replication: A trigger lets you register custom application code that is automatically executed when a data change (write transaction) occurs in a database system. The trigger hasthe opportunity to log this change into a separate table, from which it can be read by an external process.
 
-#### 7. How this binary serialization deals with APIs?
-> These APIs are naturally verbose and do not match very well against common language patterns, becuase they are machine-written and not human-written, but they work well enough.
->
-> These advanced binary data interchange formats are especially neat in that they provide forward and backwards compatibility built-in.
->
-> In the context of data interchange formats this is known as schema evolution.
+#### 4. How can you achive achieving monotonic reads?
+Making sure that each user always makes their reads from the same replica (different users can read from different replicas).
 
-#### 8. What is the approaching of Apache Thrift and Google Protocol Buffers when talking about data interchange?
-> Fields in Protobuf (and in Thrift) are identified by field IDs.
->
-> These field IDs can be omitted if the field is not required, in which case they will simply be removed from the encoded byte sequence.
->
-> But once assigned, they cannot be changed, as doing so would change the meaning of past data encodings.
->
-> This provides backwards compatibility. There is one catch however. You cannot mark new fields required, for the obvious reason that doing so would cause all old encodings to fail.
-> How about forward compatibility? Every tag is provided a type annotation. When an old reader reads new data, and finds a type it doesn't know about, it skips it, using the type annotation to determine how many bytes to skip. Easy!
+#### 5. Describe the mechanisms used in Dynamo-style datastores?
+Read repair: when a client makes a read from several nodes in parallel, it can detect any stale responses.
 
-#### 9. What about Apache Avro?
-> Aother perspective, used by Apache Avro, is that these formats must be resiliant to differences between the reader schema and the writer schema. The challenge is to have a reader that understands every possible version of the writer.
->
-> Avro requires you provide version information on read, which the other two formats do not require. This is additional overhead, as you must either encode that information in the file or provide it through some other means (the former is better if the file is big, and the latter if the file(s) are small).
->
-> This allows Avro to omit data tags. This in turn makes Avro much easier to use with a dynamic schema, e.g. one that is changing all the time.
->
-> This use case is what motivated Avro in the first case. And this is a tradeoff! Avro is more dynamic, Buffers and Thrift are more static but less work.
+Anti-entropy process: some datastores have a background process that constantly looks for differences in the data between replicas and copies any missing data from one replica to another.
+
+#### 6. What is hinted handoff?
+Once the network interruption is fixed, any writes that one node temporarily accepted on behalf of another node are sent to the appropriate “home” nodes.
+
+## Chapter 6
+
+#### 7. How can we avoid partition with disproportionately high load?
+Assign records to nodes randomly. That would distribute the data quite evenly across the nodes.But it's not the best way, thus let’s assume for now that you have a simple key-value data model, in which you always access a record by its primary key. For example, in an old-fashioned paper encyclopedia, you look up an entry by its title; since all the entries are alphabetically sorted by title, you can quickly find the one you’re looking for.
+
+#### 8. Describe an example of partitioning by key range
+A print encyclopedia is partitioned by key range. Volume 1 contains words starting with A and B, but volume 12 contains words starting with T, U, V, X, Y, and Z. Simply having one volume per two letters of the alphabet would lead to some volumes being much bigger than others.
+
+#### 9. What are skewed workloads?
+Some partitions that have more data or queries than others. The presence of skew makes partitioning much less effective. In an extreme case, all the load could end up on one partition, so 9 out of 10 nodes are idle and your bottleneck is the single busy node.
 
 #### 10. What do these 3 formats have in common?
 > All three are equipped with interface description languages. These allow you to perform code generation and get a machine-written API for your data
 >
 > However, code generation is mainly useful for statically typed languages, which benefit from explicit type checking. Dynamically typed languages, like Python, do not get much benefit.
-
-### Data Flow
 
 #### 11. What is Data Flow?
 > Data flow is how data flows through your system. It involves thinking about data usage patterns, application boundaries, and similar such things.
