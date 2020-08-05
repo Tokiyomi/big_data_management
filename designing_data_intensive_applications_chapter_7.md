@@ -55,49 +55,6 @@ The idea is that each transaction reads from a consistent snapshot of the databa
 the database at the start of the transaction. Even if the data is subsequently changed by another transaction, each transaction sees only the old data 
 from that particular point in time.
 
-#### 11. What is Data Flow?
-> Data flow is how data flows through your system. It involves thinking about data usage patterns, application boundaries, and similar such things.
-
-#### 12. What are its types?
-> Databases
->
-> Service Communication
->
-> Message Bus Pattern
-
-#### 13. Describe Databases Data Flow
-> Both backwards and forward compatibility matters in a database. Backwards compatibility is important because a database is fundamentally messages to your future self. Forward compatibility matters because when you perform rolling updates, your database will be accessed concurrently by both newer and older versions of software.
->
-> When you perform a database migration, the format of the underlying data is actually left unchanged, in those cases where no new information is stored (e.g. adding a new column full of null values). Only when you touch the newly created columns will the database figure out where to store the data so that it has space to include the additional information.
->
-> This is in recognition that the data that gets stored typically outlives the code that stores it, and your database may have values in it that have not been touched in five years or more! Moving all of that at once is expensive, so databases migrate lazily when they can.
->
-> An approach that deals data principally through databases is using what is known as an integration database. Heavy-on-database data flow is an architectural pattern commonly associated with monolithic architecture.
-
-#### 14. Describe Service Communication
-> In service communication you have services that talk to one another using some kind of agreed-upon interchange format. The web is a great example.
->
-> Often these services are organized in terms of clients and servers, with clients talking to the servers on behalf of end users.
->
-> API calls over a network of some kind have a long lineage.
->
-> On the web, this is where REST and SOAP live.
->
-> This is where service-oriented architecture and microservices matter (the latter is a more recently coined and more specific subset of the former).
->
-> REST is a design philosophy that opines on how well-designed services built over HTTP and HTTPS should look like. SOAP, by contrast, is an XML-based and technically HTTP-independent (but usually HTTP-using) design philosophy. The two compete for mindshare.
->
-> REST is winning over SOAP, at least in part due to the decline of XML.
-
-### 15. Describe Message Bus Pattern?
-> Your applications can communicate with one another using streams of messages that get passed through a message broker.
->
-> Example message brokers are ZeroMQ, Apache Kafka, and Google PubSub.
->
-> When using this pattern, your application parts no longer need to be aware of one another. Message emitters can emit messages without caring about who's listening, and message listeners can consume messages without being aware of who's emitting them.
->
-> This pattern is good for separation of concerns. The trade-off is that there is one more service you have to maintain. Message brokers are not a lightweight solution overhead-wise.
-
 ## References
 
 Kleppmann, M. (2017). Designing Data Intensive Applications: Part 1. Foundations of Data Systems: Encoding and Evolution. O'Reilly, 1st Edition. Pp. 111-139
